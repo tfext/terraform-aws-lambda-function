@@ -1,5 +1,5 @@
 module "tagging" {
-  source = "github.com/dan-drew/terraform-utilities-tagging"
+  source = "github.com/tfext/terraform-utilities-tagging"
 }
 
 resource "aws_lambda_function" "function" {
