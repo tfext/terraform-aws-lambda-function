@@ -1,6 +1,11 @@
-module "lambda_assume_role" {
-  source = "github.com/tfext/terraform-aws-assume-role-policy"
-  type   = "lambda"
+data "aws_iam_policy_document" "assume_role" {
+  statement {
+    principals {
+      identifiers = ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
+      type        = "Service"
+    }
+    actions = ["sts:AssumeRole"]
+  }
 }
 
 data "aws_iam_policy_document" "function" {
@@ -14,7 +19,7 @@ data "aws_iam_policy_document" "function" {
 resource "aws_iam_role" "function" {
   name               = "${var.name}-lambda-function"
   description        = module.tagging.managed_by_description
-  assume_role_policy = module.lambda_assume_role.policy.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "function" {

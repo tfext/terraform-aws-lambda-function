@@ -15,12 +15,12 @@ variable "runtime" {
 }
 
 variable "log_retention_days" {
-  type = number
+  type    = number
   default = 7
 }
 
 variable "environment" {
-  type = map(string)
+  type    = map(string)
   default = null
 }
 
@@ -30,4 +30,11 @@ variable "timeout" {
 
 variable "memory" {
   default = 256
+}
+
+variable "alias" {
+  type        = string
+  default     = "latest"
+  nullable    = false
+  description = "Alias to register for latest version"
 }
